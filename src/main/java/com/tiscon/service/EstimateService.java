@@ -119,6 +119,18 @@ public class EstimateService {
         int pricePerTruck = estimateDAO.getPricePerTruck(boxes);
         return pricePerTruck;
     }
+    public Integer getocost(UserOrderDto dto) {
+       
+        // オプションサービスの料金を算出する。
+        int priceForOptionalService = 0;
+
+        if (dto.getWashingMachineInstallation()) {
+            priceForOptionalService = estimateDAO.getPricePerOptionalService(OptionalServiceType.WASHING_MACHINE.getCode());
+        }
+
+        return  priceForOptionalService;
+    }
+
     /**
      * 荷物当たりの段ボール数を算出する。
      *
