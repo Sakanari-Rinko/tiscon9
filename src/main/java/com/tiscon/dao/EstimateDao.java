@@ -119,6 +119,7 @@ public class EstimateDao {
         String sql = "SELECT BOX FROM PACKAGE_BOX WHERE PACKAGE_ID = :packageId";
 
         SqlParameterSource paramSource = new MapSqlParameterSource("packageId", packageId);
+        System.out.println("ボックスの数:" );
         return parameterJdbcTemplate.queryForObject(sql, paramSource, Integer.class);
     }
 
