@@ -96,6 +96,20 @@ public class EstimateService {
     }
 
     /**
+     * 見積もり依頼に応じた概算見積もりを行う。
+     *
+     * @param dto 見積もり依頼情報
+     * @return 概算見積もり結果の料金
+     */
+    public Integer getdistance(UserOrderDto dto) {
+        double distance = estimateDAO.getDistance(dto.getOldPrefectureId(), dto.getNewPrefectureId());
+        // 小数点以下を切り捨てる
+        int distanceInt = (int) Math.floor(distance);
+
+        return distanceInt;
+    }
+
+    /**
      * 荷物当たりの段ボール数を算出する。
      *
      * @param packageNum 荷物数
