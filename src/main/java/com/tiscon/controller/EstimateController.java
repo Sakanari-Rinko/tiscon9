@@ -133,11 +133,14 @@ public class EstimateController {
         Integer price = estimateService.getPrice(dto);
 
         Integer distance = estimateService.getdistance(dto);
+        Integer tcost=estimateService.gettcost(dto);
 
         model.addAttribute("prefectures", estimateDAO.getAllPrefectures());
         model.addAttribute("userOrderForm", userOrderForm);
         model.addAttribute("price", price);
         model.addAttribute("distance", distance);
+        model.addAttribute("t_cost",tcost);
+        
         return "result";
     }
 
