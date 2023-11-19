@@ -21,11 +21,9 @@
     <div class="col-sm-12">
       <div class="text-center">
         <div class="primary-text"><span th:text="${price}"></span>円</div>
-        <div>お見積り結果=距離[km]×100[円/km]+トラック輸送費[円]+オプション料金</div>
-        <div><span th:text="${price}"></span>[円]=<span th:text="${distance}"></span>[km]×100[円/km]+<span th:text="${t_cost}"></span>[円]+<span th:text="${o_cost}"></span>[円]</div> 
-        <div class="primary-text"><span th:text="${distance}"></span>km</div>    
-        <div class="primary-text"><span th:text="${t_cost}"></span>円</div>    
-        <div class="primary-text"><span th:text="${o_cost}"></span>円</div> 
+        <div>お見積り結果=(距離[km]×100[円/km]+トラック輸送費[円])×季節料金+オプション料金</div>
+        <div><span th:text="${price}"></span>[円]=(<span th:text="${distance}"></span>[km]×100[円/km]+<span th:text="${t_cost}"></span>[円])×<span th:text="${season}"></span>
+          +<span th:text="${o_cost}"></span>[円]</div> 
         <button type="submit" name="complete" class="btn btn-primary">詳細見積もり依頼へ</button>
       </div>
       <div class="sub-title">お客様情報</div>

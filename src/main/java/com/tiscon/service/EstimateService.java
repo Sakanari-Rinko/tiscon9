@@ -156,6 +156,37 @@ public class EstimateService {
         int pricePerTruck = estimateDAO.getPricePerTruck(boxes);
         return pricePerTruck;
     }
+    public double getSeason(UserOrderDto dto) {
+
+        Date date = new Date();
+        //季節ごとに変化する季節関数を取り込む。
+        try {
+            String strDate = dto.getMovingday();
+            System.out.println("文字列 = " + strDate);
+         
+            SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd");
+            date = sdFormat.parse(strDate);
+            System.out.println("Date型 = " + date);
+         
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int month = calendar.get(Calendar.MONTH)+1;
+
+        double season;
+
+        if ((3<=month)&&(month<=4)){
+            season = 1.5;
+        }else if (month==9){
+            season = 1.2;
+        }else {
+            season = 1;
+        }
+
+        return season;
+    }
     /**
      * 見積もり依頼に応じた概算見積もりを行う。
      *
