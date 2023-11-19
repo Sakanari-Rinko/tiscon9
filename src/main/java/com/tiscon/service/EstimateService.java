@@ -11,7 +11,11 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -85,6 +89,33 @@ public class EstimateService {
         // 箱に応じてトラックの種類が変わり、それに応じて料金が変わるためトラック料金を算出する。
         int pricePerTruck = estimateDAO.getPricePerTruck(boxes);
 
+        Date date = new Date();
+        //季節ごとに変化する季節関数を取り込む。
+        try {
+            String strDate = dto.getMovingday();
+            System.out.println("文字列 = " + strDate);
+         
+            SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd");
+            date = sdFormat.parse(strDate);
+            System.out.println("Date型 = " + date);
+         
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int month = calendar.get(Calendar.MONTH)+1;
+
+        double season;
+
+        if ((3<=month)&&(month<=4)){
+            season = 1.5;
+        }else if (month==9){
+            season = 1.2;
+        }else {
+            season = 1;
+        }
+
         // オプションサービスの料金を算出する。
         int priceForOptionalService = 0;
 
@@ -92,7 +123,7 @@ public class EstimateService {
             priceForOptionalService = estimateDAO.getPricePerOptionalService(OptionalServiceType.WASHING_MACHINE.getCode());
         }
 
-        return priceForDistance + pricePerTruck + priceForOptionalService;
+        return (int)((priceForDistance + pricePerTruck)*season) + priceForOptionalService;
     }
 
     /**
