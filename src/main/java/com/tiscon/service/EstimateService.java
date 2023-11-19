@@ -108,6 +108,12 @@ public class EstimateService {
 
         return distanceInt;
     }
+    /**
+     * 見積もり依頼に応じた概算見積もりを行う。
+     *
+     * @param dto 見積もり依頼情報
+     * @return 概算見積もり結果の料金
+     */
     public Integer gettcost(UserOrderDto dto) {
 
         int boxes = getBoxForPackage(dto.getBox(), PackageType.BOX)
@@ -119,6 +125,12 @@ public class EstimateService {
         int pricePerTruck = estimateDAO.getPricePerTruck(boxes);
         return pricePerTruck;
     }
+    /**
+     * 見積もり依頼に応じた概算見積もりを行う。
+     *
+     * @param dto 見積もり依頼情報
+     * @return 概算見積もり結果の料金
+     */
     public Integer getocost(UserOrderDto dto) {
        
         // オプションサービスの料金を算出する。
